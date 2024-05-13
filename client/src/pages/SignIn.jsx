@@ -55,18 +55,18 @@ export default function SignIn() {
       });
       const data = await res.json();
       console.log(data);
-      if (data.success) {
-        dispatch(signInSuccess(data));
-        navigate('/'); // Navigate home only if success
-      } else {
-        dispatch(signInfailure(data.message || "Login failed")); // Handle failed login
-      }
+      if (data.success===false) {
+        dispatch(signInfailure(data.message));
+        return; 
+      } 
+      dispatch(signInSuccess(data));
+      navigate('/')
+      
     } catch (error) {
-      console.error("Login error:", error);
       dispatch(signInfailure(error.message));
     }
   };
-  
+
 
   return (
     <div className='P-3 max-w-lg mx-auto'>
